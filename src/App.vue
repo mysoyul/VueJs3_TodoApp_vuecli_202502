@@ -12,7 +12,7 @@ import TodoHeader from '@/components/TodoHeader.vue';
 import TodoInput from '@/components/TodoInput.vue';
 import TodoList from '@/components/TodoList.vue';
 import TodoFooter from '@/components/TodoFooter.vue';
-import { onBeforeMount, reactive } from 'vue';
+import { reactive } from 'vue';
 
 export default {
   components: {
@@ -47,19 +47,6 @@ export default {
       //reactive() 함수로 정의한 변수 todoItems = [] 초기화 않됨 
       todoItems.splice(0)  
     }
-
-    //LifeCycle Hook 함수
-    onBeforeMount(() => {
-      if (localStorage.length > 0) {
-        for (var i = 0; i < localStorage.length; i++) {
-          const storageKey = localStorage.key(i)
-          const itemJson = localStorage.getItem(storageKey)
-          if (itemJson) {
-            todoItems.push(JSON.parse(itemJson));
-          } //if
-        } //for
-      } //if
-    });
 
     return { todoItems, addTodo, removeTodo, toggleTodo, clearTodo };
   }, //setup

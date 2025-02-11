@@ -34,6 +34,16 @@ export const store = createStore({
       localStorage.removeItem(todoItem.item);
       state.todoItems.splice(index, 1);
     },
+    toggleTodo(state, payload) {
+      const {
+        todoItem: { completed, item },
+        index,
+      } = payload;
+
+      state.todoItems[index].completed = !completed;
+      localStorage.removeItem(item);
+      localStorage.setItem(item, JSON.stringify(state.todoItems[index]));
+    },
   },
   //상태변수를 변경하는 비동기함수 (ajax 통신)를 포함하는 객체
   actions: {},

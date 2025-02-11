@@ -2,7 +2,7 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
-    <TodoList @toggle:todo="toggleTodo"></TodoList>
+    <TodoList></TodoList>
     <TodoFooter @clear:todo="clearTodo"></TodoFooter>
   </div>
 </template>
@@ -22,22 +22,13 @@ export default {
   setup() {
     const todoItems = reactive([]);
 
-    const toggleTodo = (todoItem, index) => {
-      //destructuring assignment
-      const { completed, item } = todoItem
-      todoItems[index].completed = !completed;
-      localStorage.removeItem(item);
-      localStorage.setItem(item,
-        JSON.stringify(todoItems[index]));
-    };
-
     const clearTodo = () => {
       localStorage.clear()
       //reactive() 함수로 정의한 변수 todoItems = [] 초기화 않됨 
       todoItems.splice(0)  
     }
 
-    return { todoItems, toggleTodo, clearTodo };
+    return { todoItems, clearTodo };
   }, //setup
 
 } //export default

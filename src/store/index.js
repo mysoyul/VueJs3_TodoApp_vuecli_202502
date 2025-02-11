@@ -1,27 +1,31 @@
 import { createStore, createLogger } from "vuex";
-import http from "@/common/http-common"
-
-const storage = {
-  fetch() {
-    const arr = [];
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key !== "__VUE_DEVTOOLS_KIT_TIMELINE_LAYERS_STATE__") {
-          const itemJson = localStorage.getItem(key);
-          arr.push(JSON.parse(itemJson));
-        }
-      }
-    }
-    return arr;
-  },
-};
+import http from "@/common/http-common";
+import axios from "axios"
 
 export const store = createStore({
   plugins: process.env.NODE_ENV === "development" ? [createLogger()] : [],
   //상태변수를 선언하는 state 객체
   state: {
-    todoItems: storage.fetch(),
+    todoItems: [],
+  },
+  //상태변수를 변경하는 비동기함수 (ajax 통신)를 포함하는 객체
+  actions: {
+    loadTodoItems({ commit }) {
+      http
+        .get("/todos")
+        .then((r) => r.data)
+        .then((items) => {
+          commit("setTodoItems", items);
+        })
+        .catch((error) => {
+          if (axios.isAxiosError(error)) {
+            console.log(error?.response?.status + " : " + error.message);
+          } else {
+            console.error(error);
+          }
+        });
+    }, //loadTodoItems
+    
   },
   //상태변수를 변경(set)하는 동기함수를 포함하는 객체
   mutations: {
@@ -50,6 +54,4 @@ export const store = createStore({
       state.todoItems = [];
     },
   },
-  //상태변수를 변경하는 비동기함수 (ajax 통신)를 포함하는 객체
-  actions: {},
 });

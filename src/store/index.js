@@ -15,7 +15,7 @@ export const store = createStore({
         .get("/todos")
         .then((response) => response.data)
         .then((items) => {
-          commit("setTodoItems`", items);
+          commit("setTodoItems", items);
         })
         .catch((error) => {
           if (axios.isAxiosError(error)) {
@@ -25,6 +25,14 @@ export const store = createStore({
           }
         });
     }, //loadTodoItems
+    addTodo({ commit }, payload) {
+      http
+        .post(`/todos`, payload)
+        .then((r) => r.data)
+        .then((items) => {
+          commit("setTodoItems", items);
+        });
+    }, //addTodo
   },
   //상태변수를 변경(set)하는 동기함수를 포함하는 객체
   mutations: {

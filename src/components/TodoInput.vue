@@ -48,7 +48,9 @@ const handleInput = (event) => {
 const addTodo = () => {
     if (newTodoItem.value !== "") {
         const todoItem = newTodoItem.value
-        store.commit("addTodo", todoItem)
+        const itemObj = { completed: false, item: todoItem }
+        store.dispatch("addTodo", itemObj)
+        //store.commit("addTodo", todoItem)
         clearInput()
     } else {
         //showModal=true로 설정하여 MyModal 컴포넌트 활성화

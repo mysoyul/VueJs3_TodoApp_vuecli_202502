@@ -49,6 +49,14 @@ export const store = createStore({
           commit("setTodoItems", items);
         });
     }, //removeTodo
+    clearTodo({ commit }) {
+      http
+        .delete("/todos")
+        .then((r) => r.data)
+        .then((items) => {
+          commit("setTodoItems", items);
+        });
+    }, //clearTodo
   },
   //상태변수를 변경(set)하는 동기함수를 포함하는 객체
   mutations: {

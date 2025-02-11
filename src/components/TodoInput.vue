@@ -49,7 +49,7 @@ const addTodo = () => {
     if (newTodoItem.value !== "") {
         const todoItem = newTodoItem.value
         const itemObj = { completed: false, item: todoItem }
-        store.dispatch("addTodo", itemObj)
+        store.dispatch("moduleTodo/addTodo", itemObj)
         //store.commit("addTodo", todoItem)
         clearInput()
     } else {

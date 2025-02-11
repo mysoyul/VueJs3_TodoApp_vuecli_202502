@@ -7,12 +7,14 @@
 </template>
 
 <script>
+import { useStore } from "vuex"
+
 export default {
-    //clear:todo 이름을 갖는 커스텀 이벤트 정의하기
-    emits: ['clear:todo'],
-    setup(props, {emit}) {
+    setup() {
+        const store = useStore()
+
         const clearTodo = () => {
-            emit('clear:todo')
+            store.commit("clearTodo")
         }
 
         return {

@@ -44,6 +44,10 @@ export const store = createStore({
       localStorage.removeItem(item);
       localStorage.setItem(item, JSON.stringify(state.todoItems[index]));
     },
+    clearTodo(state) {
+      localStorage.clear();
+      state.todoItems = [];
+    },
   },
   //상태변수를 변경하는 비동기함수 (ajax 통신)를 포함하는 객체
   actions: {},

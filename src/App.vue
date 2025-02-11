@@ -3,7 +3,7 @@
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
     <TodoList></TodoList>
-    <TodoFooter @clear:todo="clearTodo"></TodoFooter>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -12,7 +12,6 @@ import TodoHeader from '@/components/TodoHeader.vue';
 import TodoInput from '@/components/TodoInput.vue';
 import TodoList from '@/components/TodoList.vue';
 import TodoFooter from '@/components/TodoFooter.vue';
-import { reactive } from 'vue';
 
 export default {
   components: {
@@ -20,15 +19,8 @@ export default {
   },
 
   setup() {
-    const todoItems = reactive([]);
-
-    const clearTodo = () => {
-      localStorage.clear()
-      //reactive() 함수로 정의한 변수 todoItems = [] 초기화 않됨 
-      todoItems.splice(0)  
-    }
-
-    return { todoItems, clearTodo };
+    
+    return { };
   }, //setup
 
 } //export default

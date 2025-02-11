@@ -1,4 +1,5 @@
 import { createStore, createLogger } from "vuex";
+import http from "@/common/http-common"
 
 const storage = {
   fetch() {

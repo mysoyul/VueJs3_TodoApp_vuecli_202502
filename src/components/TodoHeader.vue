@@ -1,15 +1,15 @@
 <template>
     <header>
-        <h1>TODO it!</h1>
+        <h1>TODO it! ({{ mode }})</h1>
     </header>
 </template>
 
 <script>
 export default {
     setup() {
-
-
-        return {}
+        //VUE_APP_TITLE 환경변수 가져오기
+        const mode = process.env.VUE_APP_TITLE
+        return { mode }
     }
 }
 </script>

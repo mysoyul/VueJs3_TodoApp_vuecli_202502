@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul>
+        <TransitionGroup name="list" tag="ul">
             <li v-for="(todo, index) in props.todoList" :key="index" class="shadow">
                 <i class="fas fa-check checkBtn" :class="{ checkBtnCompleted: todo.completed }"
                     @click="toggleComplete(todo, index)"></i>
@@ -9,13 +9,13 @@
                     <i class="fas fa-trash-alt"></i>
                 </span>
             </li>
-        </ul>
+        </TransitionGroup>
     </div>
 </template>
 
 <script setup>
 const props = defineProps(['todoList'])
-const emit = defineEmits(["remove:todo","toggle:todo"])
+const emit = defineEmits(["remove:todo", "toggle:todo"])
 
 const removeTodo = (todoItem, index) => {
     emit('remove:todo', todoItem, index)
@@ -28,6 +28,17 @@ const toggleComplete = (todoItem, index) => {
 </script>
 
 <style scoped>
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.7s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
 ul {
     list-style-type: none;
     padding-left: 0px;

@@ -4,7 +4,7 @@
         <span class="addContainer" @click="addTodo">
             <i class="fas fa-plus addBtn"></i>
         </span>
-        <MyModal v-if="showModal" @close="showModal = false">
+        <MyModal v-show="showModal" @close="showModal = false">
             <template v-slot:header>
                 <h3>
                     경고!
@@ -50,6 +50,7 @@ const addTodo = () => {
         emit('add:todo', todoItem)
         clearInput()
     } else {
+        //showModal=true로 설정하여 MyModal 컴포넌트 활성화
         showModal.value = !showModal.value
     }
 }

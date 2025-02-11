@@ -20,16 +20,17 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useStore } from "vuex"
+
 import MyModal from './common/MyModal.vue'
+
+const store = useStore()
 
 const showModal = ref(false)
 
 const newTodoItem = ref("")
 //input:todo를 이름을 갖는 커스텀 Event를 정의하기
 //const emit = defineEmits(["input:todo"])
-
-//add:todo를 이름을 갖는 커스텀 Event를 정의하기
-const emit = defineEmits(["add:todo"])
 
 //Event Handler 함수
 const handleInput = (event) => {
@@ -47,7 +48,7 @@ const handleInput = (event) => {
 const addTodo = () => {
     if (newTodoItem.value !== "") {
         const todoItem = newTodoItem.value
-        emit('add:todo', todoItem)
+        store.commit("addTodo", todoItem)
         clearInput()
     } else {
         //showModal=true로 설정하여 MyModal 컴포넌트 활성화

@@ -22,10 +22,10 @@ const store = useStore()
 //store의 state객체 포함된 상태변수 가져오기
 const todoItems = computed(() => store.state.todoItems)
 
-const emit = defineEmits(["remove:todo", "toggle:todo"])
+const emit = defineEmits(["toggle:todo"])
 
 const removeTodo = (todoItem, index) => {
-    emit('remove:todo', todoItem, index)
+    store.commit("removeTodo", {todoItem, index})
 }
 
 const toggleComplete = (todoItem, index) => {

@@ -5,8 +5,9 @@ const storage = {
     const arr = [];
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
-        const itemJson = localStorage.getItem(localStorage.key(i));
-        if (itemJson) {
+        const key = localStorage.key(i);
+        if (key !== "__VUE_DEVTOOLS_KIT_TIMELINE_LAYERS_STATE__") {
+          const itemJson = localStorage.getItem(key);
           arr.push(JSON.parse(itemJson));
         }
       }
@@ -27,6 +28,11 @@ export const store = createStore({
       const obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       state.todoItems.push(obj);
+    },
+    removeTodo(state, payload) {
+      const { todoItem, index } = payload;
+      localStorage.removeItem(todoItem.item);
+      state.todoItems.splice(index, 1);
     },
   },
   //상태변수를 변경하는 비동기함수 (ajax 통신)를 포함하는 객체

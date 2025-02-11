@@ -1,6 +1,6 @@
 import { createStore, createLogger } from "vuex";
 import http from "@/common/http-common";
-import axios from "axios"
+import axios from "axios";
 
 export const store = createStore({
   plugins: process.env.NODE_ENV === "development" ? [createLogger()] : [],
@@ -13,9 +13,9 @@ export const store = createStore({
     loadTodoItems({ commit }) {
       http
         .get("/todos")
-        .then((r) => r.data)
+        .then((response) => response.data)
         .then((items) => {
-          commit("setTodoItems", items);
+          commit("setTodoItems`", items);
         })
         .catch((error) => {
           if (axios.isAxiosError(error)) {
@@ -25,10 +25,12 @@ export const store = createStore({
           }
         });
     }, //loadTodoItems
-    
   },
   //상태변수를 변경(set)하는 동기함수를 포함하는 객체
   mutations: {
+    setTodoItems(state, items) {
+      state.todoItems = items;
+    },
     addTodo(state, todoItem) {
       const obj = { completed: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));

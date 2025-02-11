@@ -15,19 +15,25 @@
 
 <script setup>
 import { useStore } from "vuex"
-import { computed } from "vue"
+import { computed, onMounted } from "vue"
 
 //store객체를 Load하기
 const store = useStore()
 //store의 state객체 포함된 상태변수 가져오기
 const todoItems = computed(() => store.state.todoItems)
 
+//LifeCycle Hook함수 mount된 이후에 자동으로 호출됨
+onMounted(() => {
+    console.log('onMounted...')
+    store.dispatch("loadTodoItems")
+})
+
 const removeTodo = (todoItem, index) => {
-    store.commit("removeTodo", {todoItem, index})
+    store.commit("removeTodo", { todoItem, index })
 }
 
 const toggleComplete = (todoItem, index) => {
-    store.commit("toggleTodo", {todoItem, index})
+    store.commit("toggleTodo", { todoItem, index })
 }
 
 </script>
